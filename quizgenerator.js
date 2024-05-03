@@ -1,78 +1,52 @@
-
-function Question(questionText, answerOptions, correctAnswer) {
-    this.questionText = questionText;
-    this.answerOptions = answerOptions;
-    this.correctAnswer = correctAnswer;
-
-}
-
-Question.prototype.checkAnswer = function (answer) {
-    return answer === this.correctAnswer;
-}
-
-
-
-let questions = [
-    new Question("1)Aşağıdakilerden hangisi javascript paket yönetim uygulamasıdır?", {"a)": "Node.js", "b)": "Typescript", "c)": "Npm", "d)": "Angular.js" }, "c"),
-    new Question("2)Aşağıdakilerden hangisi .net paket yönetim uygulamasıdır?", {"a)": "Node.js", "b)": "Nuget", "c)": "Npm", "d)": "Angular.js" }, "b"),
-    new Question("3)Aşağıdakilerden hangisi bir programlama dili değildir?", {"a)": "C#","b)": "Java",  "c)": "Python", "d)": "React.js" }, "d"),
-    new Question("4)Aşağidakilerden hangisi .net geliştirmede kullanılan ide'dir?", {"a)":"Eclipse","b)": "Pycharm", "c)": "Visual Studio", "d)": "Phpstorm" }, "c"),
-    new Question("5)Aşağıdakilerden hangisi mobil geliştirmede kullanılan bir teknoloji değildir?", {"a)":"React Native", "b)": "Oracle","c)": "Flutter","d)": "Kotlin" }, "b"),
-    new Question("6)Aşağıdakilerden hangisi bir versiyon kontrol sistemidir? ", { "a)": "Git", "b)": "Redux", "c)": "Docker", "d)": "Asp.net" }, "a"),
-
-];
-
-function Quiz(questions) {
-    this.questions = questions;
-    this.questionIndex = 0;
-}
-
-Quiz.prototype.getQuestion = function () {
-    return this.questions[this.questionIndex];
-}
-
-
-
 const quiz = new Quiz(questions);
+const ui = new UI();
 
 
-
-document.querySelector(".btn_start").addEventListener("click", function () {
-    if (quiz.questions.length != quiz.questionIndex) {
-        document.querySelector(".quiz_box").classList.add("active");
-        showQuestion(quiz.getQuestion());
-        quiz.questionIndex += 1;
-    }else {
-        console.log("quiz tamamlandı.");
-    }
+ui.btn_start.addEventListener("click", function() {
+    
+     ui.quiz_box.classList.add("active");
+     showQuestion(quiz.getQuestion());
+     showTheNumberOfQuestions(quiz.questionIndex + 1,quiz.questions.length);
+     ui.btn_next.classList.remove("show");
 })
 
-document.querySelector(".next_btn").addEventListener("click",function(){
-    if (quiz.questions.length != quiz.questionIndex) {
-        document.querySelector(".quiz_box").classList.add("active");
-        showQuestion(quiz.getQuestion());
+ui.btn_next.addEventListener("click",function() {
+    if (quiz.questions.length != quiz.questionIndex + 1) 
+    {
         quiz.questionIndex += 1;
+        showQuestion(quiz.getQuestion());
+        showTheNumberOfQuestions(quiz.questionIndex + 1,quiz.questions.length);
+        ui.btn_next.classList.remove("show");
+        
     } else {
         console.log("quiz tamamlandı.");
     }
 });
 
-function showQuestion(soru) {
-    let question = `<span>${soru.questionText}</span>`;
-    let option = '';
+   function optionSelected(option) {
+        let answer = option.querySelector("span b").textContent;
+        let question = quiz.getQuestion();
+    
 
-    for (let answer in soru.answerOptions) {
-      option += 
-      `
-       <div class="option">
-          <span><b>${answer}</b> ${soru.answerOptions[answer]}</span>
-       </div>
-      `;
-   }
+    if(question.checkAnswer(answer)) 
+    {
+        option.classList.add("correct");
+        option.insertAdjacentHTML("beforeend",ui.correctIcon);
+    }else{
+        option.classList.add("incorrect");
+        option.insertAdjacentHTML("beforeend",ui.incorrectIcon);
+    }
+  
+    for(let i=0; i< ui.option_list.children.length; i++)
+    {
+        ui.option_list.children[i].classList.add("disabled");
+    }
 
-   document.querySelector(".question_text").innerHTML = question;
-   document.querySelector(".option_list").innerHTML = option;
+    ui.btn_next.classList.add("show");
 
-}
+  
+
+ }
+
 
 
