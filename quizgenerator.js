@@ -5,8 +5,8 @@ const ui = new UI();
 ui.btn_start.addEventListener("click", function() {
     
      ui.quiz_box.classList.add("active");
-     showQuestion(quiz.getQuestion());
-     showTheNumberOfQuestions(quiz.questionIndex + 1,quiz.questions.length);
+     ui.showQuestion(quiz.getQuestion());
+     ui.showTheNumberOfQuestions(quiz.questionIndex + 1,quiz.questions.length);
      ui.btn_next.classList.remove("show");
 })
 
@@ -14,8 +14,8 @@ ui.btn_next.addEventListener("click",function() {
     if (quiz.questions.length != quiz.questionIndex + 1) 
     {
         quiz.questionIndex += 1;
-        showQuestion(quiz.getQuestion());
-        showTheNumberOfQuestions(quiz.questionIndex + 1,quiz.questions.length);
+        ui.showQuestion(quiz.getQuestion());
+        ui.showTheNumberOfQuestions(quiz.questionIndex + 1,quiz.questions.length);
         ui.btn_next.classList.remove("show");
         
     } else {
@@ -44,9 +44,7 @@ ui.btn_next.addEventListener("click",function() {
 
     ui.btn_next.classList.add("show");
 
-  
-
- }
+}
 
 
 
