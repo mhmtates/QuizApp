@@ -24,6 +24,11 @@
     <div class="card quiz_box">
         <header class="card-header">
             <div class="card-title"> Quiz Uygulaması </div>
+            <div class="timer">
+                <div class="time_text">Kalan Süre</div>
+                <div class="time_second">10</div>
+            </div>
+            <div class="time_line"></div>
         </header>
 
         <section class="card-body">
@@ -71,6 +76,21 @@
             </button>
         </footer>
     </div>
+    
+    <div class="card score_box">
+        <div class="icon">
+            <i class="fa-solid fa-square-poll-vertical"></i>
+        <h2>Quiz bitti.</h2>
+        </div>
+        <div class="score_text">Toplam 8 sorudan 6 doğru cevap verdiniz.
+       </div>
+        <div class="buttons">
+            <button class="btn btn-warning btn_restart">Quizi tekrar başlat</button>
+            <button class="btn btn-warning btn_quit"> Quizi bitir</button>
+        </div>
+        
+    </div>
+
     <script src="/question.js"></script>
     <script src="/quiz.js"></script>
     <script src="/ui.js"></script>
